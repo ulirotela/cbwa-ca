@@ -10,10 +10,10 @@ module.exports = () => {
       return allIssues;
     }
 
-    const singleIssue = await db.get(COLLECTION, {
+    const singlIssue = await db.get(COLLECTION, {
       issueNumber: issueNumber,
     });
-    return singleIssue;
+    return singlIssue;
   };
 
   const getByProject = async (slug) => {

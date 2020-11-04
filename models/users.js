@@ -4,18 +4,18 @@ const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(10);
 
 module.exports = () => {
-  //Get all or a single user
+  
   const get = async (email = null) => {
     if (!email) {
       const allUsers = await db.get(COLLECTION);
       return allUsers;
     }
 
-    const singleUser = await db.get(COLLECTION, {
+    const singlUser = await db.get(COLLECTION, {
       email: email,
     });
 
-    return singleUser;
+    return singlUser;
   };
 
   const add = async (name, email, usertype, userKey) => {
@@ -32,7 +32,7 @@ module.exports = () => {
   const getByKey = async (email, supliedKey) => {
     if (!supliedKey || !email) {
       return {
-        error: 'Missing key or email',
+        error: 'No key or email address',
       };
     }
 
@@ -43,7 +43,7 @@ module.exports = () => {
       const verify = bcrypt.compareSync(supliedKey, user[0].key);
       if (!verify) {
         return {
-          error: 'Wrong password',
+          error: 'Password not correct',
         };
       }
       return user[0];

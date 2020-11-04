@@ -3,11 +3,11 @@ const COLLECTION = 'projects';
 
 module.exports = () => {
   const get = async (slug = null) => {
-    const singleSlug = await db.get(COLLECTION, {
+    const singlSlug = await db.get(COLLECTION, {
       slug: slug,
     });
 
-    return singleSlug;
+    return singlSlug;
   };
 
   const add = async (slug, name, description) => {
