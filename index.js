@@ -9,38 +9,7 @@ const users = require('./controllers/users')();
 const usersModel = require('./models/users')();
 const projects = require('./controllers/projects')();
 const issues = require('./controllers/issues')();
-const comments = require('./controllers/comments')();
-
-app.use(async (req, res, next) => {
-  const FailedAuthMessage = {
-    error: 'Failed Authentication',
-    message: 'Not authorized',
-    code: 'xxx',
-  };
-
-  const suppliedKey = req.headers['x-api-key'];
-  const email = req.headers['x-api-email'];
-  const clientIp =
-    req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
-  if (!suppliedKey || !email) {
-    console.log('Failed authentication, no key suplied');
-    new Date(), clientIp;
-    FailedAuthMessage.code = '01';
-    FailedAuthMessage.message = 'No key supplied or email';
-    return res.status(401).json(FailedAuthMessage);
-  }
-
-  const user = await usersModel.getByKey(email, suppliedKey);
-
-  if (user.error) {
-    FailedAuthMessage.code = '2';
-    FailedAuthMessage.message = 'Email or password wrong';
-    return res.status(401).json(FailedAuthMessage);
-  }
-
-  next();
-});
+const comments = require('./controllers/comments')(); 
 
 app.use(bodyParser.json());
 
