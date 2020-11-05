@@ -42,6 +42,7 @@ module.exports = () => {
   };
 
   const add = async (issueNumber, text, author) => {
+    console.log(author, issueNumber, text)
     const PIPELINE = { issueNumber: RegExp(`^${issueNumber}$`, 'i') };
     const CONDITION = {
       $push: {

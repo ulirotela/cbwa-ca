@@ -8,7 +8,8 @@ module.exports = () => {
     res.json(await comments.getAComment(req.params.commentId));
   };
   const addComment = async (req, res) => {
-    const { issueNumber, text, author } = req.body;
+    const issueNumber = req.params.issueNumber;  
+    const {    text, author } = req.body;
     const result = await comments.add(issueNumber, text, author);
     res.json(result);
   };

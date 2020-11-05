@@ -56,13 +56,14 @@ module.exports = () => {
       });
     });
   };
-  const update = (collectionName, pipeline = []) => {
+  const update = (collectionName, pipeline, condition  ) => {
+    console.log(pipeline)
     return new Promise((resolve, reject) => {
       MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
         const db = client.db(DB_NAME);
         const collection = db.collection(collectionName);
 
-        collection.updateOne(pipeline[0], pipeline[1], (err, result) => {
+        collection.updateOne(pipeline, condition, (err, result) => {
           resolve(result);
           client.close();
         });
