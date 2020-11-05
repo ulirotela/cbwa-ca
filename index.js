@@ -6,10 +6,38 @@ const hostname = '0.0.0.0';
 const app = (module.exports = express());
 
 const users = require('./controllers/users')();
-const usersModel = require('./models/users')();
+const hash = require('./models/users')();
 const projects = require('./controllers/projects')();
 const issues = require('./controllers/issues')();
 const comments = require('./controllers/comments')(); 
+
+app.use(async (req, res, next) => {
+  const FailedAuthMessage = {
+    error: 'Failed Authentication',
+    message: 'Not authorized',
+    code: 'xxx',
+  };
+
+  const key = req.headers['x-api-key'];
+  const email = req.headers['x-api-user'];
+
+  if (!key || !email) {
+    FailedAuthMessage.code = '01';
+    FailedAuthMessage.message = 'key or email not found';
+    return res.status(401).json(FailedAuthMessage);
+  }
+
+  const user = await hash.getByKey(email, key);
+
+  if (user.error) {
+    FailedAuthMessage.code = '2';
+    FailedAuthMessage.message = 'Email or password wrong';
+    return res.status(401).json(FailedAuthMessage);
+  }
+
+  next();
+});
+
 
 app.use(bodyParser.json());
 
@@ -24,18 +52,20 @@ app.get('/projects/:projectSlug/issues', issues.getByProjectSlug);
 app.post('/projects/:slugName/issues', issues.postController);
 app.put('/projects/issues/:issueNumber/:status', issues.updateStatus);
 
-app.get('/projects', projects.getController);
-app.get('/projects/:slug', projects.getBySlug);
-app.post('/projects', projects.postController);
-
 app.get('/comments/:email', comments.getByAuthor);
 app.get('/comments', comments.getAllComments);
 app.get('/issues/:issueNumber/comments', comments.getAllCommentsIssue);
 app.get('/issues/:issueNumber/comments/:commentId', comments.getComment);
 app.post('/issues/:issueNumber/comments', comments.addComment);
 
+app.get('/projects', projects.getController);
+app.get('/projects/:slug', projects.getBySlug);
+app.post('/projects', projects.postController);
+
+
+
 app.get('/', (req, res) => {
-  res.send('Hello Bug Tracker ');
+  res.send('Hello asdfjk ');
 });
 
 app.listen(port, hostname, () => {
