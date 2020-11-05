@@ -2,12 +2,16 @@ const db = require('../db')();
 const COLLECTION = 'projects';
 
 module.exports = () => {
-  const get = async (slug = null) => {
-    const singlSlug = await db.get(COLLECTION, {
-      slug: slug,
+  const get = async (slug = null) => {  
+    if(!slug){
+      const slugs = await   db.get(COLLECTION)
+      return slugs;
+    }
+    const Slug = await db.get(COLLECTION, {
+      Slug : Slug,
     });
 
-    return singlSlug;
+    return slugs;
   };
 
   const add = async (slug, name, description) => {

@@ -3,8 +3,8 @@ const ObjectID = require('mongodb').ObjectID;
 const COLLECTION = 'issues';
 
 module.exports = () => {
-  //Get all comments for an issue
-  const getAllCommentsIssue = async (issueNumber) => {
+            
+  const getAllCommentsIssu = async (issueNumber) => {
     const PIPELINE = [
       { $match: { issueNumber: RegExp(`^${issueNumber}$`, 'i') } },
       {
@@ -19,8 +19,8 @@ module.exports = () => {
     const getCommentsIssue = await db.aggregate(COLLECTION, PIPELINE);
     return getCommentsIssue;
   };
-  //Get a single comment by ID
-  const getAComment = async (commentId) => {
+  
+  const getComment = async (commentId) => {
     var PIPELINE = [
       { $match: { 'comments._id': ObjectID(commentId) } },
       {
@@ -96,9 +96,9 @@ module.exports = () => {
   };
 
   return {
-    getAllCommentsIssue,
+    getAllCommentsIssu,
     add,
-    getAComment,
+    getComment,
     getAll,
     getByTheAuthor,
   };

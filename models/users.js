@@ -31,20 +31,20 @@ module.exports = () => {
 
   const getByKey = async (email, supliedKey) => {
     if (!supliedKey || !email) {
-      return {
-        error: 'wrong email or password',
-      };
+      return null
     }
 
     try {
       const user = await db.get(COLLECTION, {
         email: email,
       });
+      if(user.length == 0){
+        return null
+      }
       const verify = bcrypt.compareSync(supliedKey, user[0].key);
       if (!verify) {
-        return {
-          error: 'wrong password',
-        };
+        return null
+        
       }
       return user[0];
     } catch (e) {

@@ -3,17 +3,17 @@ const ObjectID = require('mongodb').ObjectID;
 
 const COLLECTION = 'issues';
 
-module.exports = () => {
+module.exports = () => { 
   const get = async (issueNumber = null) => {
     if (!issueNumber) {
-      const allIssues = await db.get(COLLECTION);
-      return allIssues;
+      const issues = await db.get(COLLECTION);
+      return issues;
     }
 
-    const singlIssue = await db.get(COLLECTION, {
+    const issue  = await db.get(COLLECTION, {
       issueNumber: issueNumber,
     });
-    return singlIssue;
+    return issue;
   };
 
   const getByProject = async (slug) => {
@@ -34,9 +34,9 @@ module.exports = () => {
       },
     ];
 
-    const issueByProject = await db.aggregate('projects', PIPELINE);
+    const issueProject = await db.aggregate('projects', PIPELINE);
 
-    return issueByProject;
+    return issueProject;
   };
 
   const add = async (slugName, title, description, status) => {

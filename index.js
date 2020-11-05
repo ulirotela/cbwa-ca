@@ -30,7 +30,7 @@ app.use(async (req, res, next) => {
 
   const user = await hash.getByKey(email, key);
 
-  if (user.error) {
+  if (!user ) {
     FailedAuthMessage.code = '2';
     FailedAuthMessage.message = 'Email or password wrong';
     return res.status(401).json(FailedAuthMessage);
