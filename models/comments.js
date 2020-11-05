@@ -15,7 +15,7 @@ module.exports = () => {
         },
       },
     ];
-    
+
     const getCommentsIssue = await db.aggregate(COLLECTION, PIPELINE);
     return getCommentsIssue;
   };
@@ -56,7 +56,6 @@ module.exports = () => {
     return results.result;
   };
 
-  //get all the comments
   const getAll = async () => {
     const PIPELINE = [
       {
@@ -74,7 +73,7 @@ module.exports = () => {
 
 
   //Get all comments for author
-  const getByAuthor = async (email) => {
+  const getByTheAuthor = async (email) => {
     const PIPELINE = [
       { $match: { 'comments.author': RegExp(`^${email}$`, 'i') } },
       {
@@ -91,8 +90,8 @@ module.exports = () => {
         },
       },
     ];
-    const getByAuthor = await db.aggregate(COLLECTION, PIPELINE);
-    return getByAuthor;
+    const getByTheAuthor = await db.aggregate(COLLECTION, PIPELINE);
+    return getByTheAuthor;
   };
 
   return {
@@ -100,6 +99,6 @@ module.exports = () => {
     add,
     getAComment,
     getAll,
-    getByAuthor,
+    getByTheAuthor,
   };
 };

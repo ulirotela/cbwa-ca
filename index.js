@@ -14,28 +14,28 @@ const comments = require('./controllers/comments')();
 app.use(bodyParser.json());
 
 //users routes
-app.get('/users', users.getController); // get all users
-app.get('/users/:email', users.getByEmail); //get individual user
-app.post('/users', users.postController); // add user
+app.get('/users', users.getController);
+app.get('/users/:email', users.getByEmail);
+app.post('/users', users.postController);
 
-app.get('/issues', issues.getController); //get all issues
-app.get('/issues/:issueNumber', issues.getByIssueNumber); // get individual issue
-app.get('/projects/:projectSlug/issues', issues.getByProjectSlug); // get all issues for a project
-app.post('/projects/:slugName/issues', issues.postController); // add an issue for a project
-app.put('/projects/issues/:issueNumber/:status', issues.updateStatus); // update an issue status
+app.get('/issues', issues.getController);
+app.get('/issues/:issueNumber', issues.getByIssueNumber);
+app.get('/projects/:projectSlug/issues', issues.getByProjectSlug);
+app.post('/projects/:slugName/issues', issues.postController);
+app.put('/projects/issues/:issueNumber/:status', issues.updateStatus);
 
-app.get('/projects', projects.getController); //get all projects
-app.get('/projects/:slug', projects.getBySlug); // get a single project
-app.post('/projects', projects.postController); // Add a new project
+app.get('/projects', projects.getController);
+app.get('/projects/:slug', projects.getBySlug);
+app.post('/projects', projects.postController);
 
-app.get('/comments/:email', comments.getByAuthor); //get comments by author
-app.get('/comments', comments.getAllComments); //get All comments
-app.get('/issues/:issueNumber/comments', comments.getAllCommentsIssue); //get All comments for an issue
-app.get('/issues/:issueNumber/comments/:commentId', comments.getComment); //get a single Comment By Id --- refactor
-app.post('/issues/:issueNumber/comments', comments.addComment); //Add a single comment for an issue --- refactor
+app.get('/comments/:email', comments.getByAuthor);
+app.get('/comments', comments.getAllComments);
+app.get('/issues/:issueNumber/comments', comments.getAllCommentsIssue);
+app.get('/issues/:issueNumber/comments/:commentId', comments.getComment);
+app.post('/issues/:issueNumber/comments', comments.addComment);
 
 app.get('/', (req, res) => {
-  res.send('Hello world com issues');
+  res.send('Hello Bug Tracker ');
 });
 
 app.listen(port, hostname, () => {
