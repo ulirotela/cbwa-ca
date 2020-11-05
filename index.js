@@ -5,11 +5,12 @@ const port = process.env.PORT || 3000;
 const hostname = '0.0.0.0';
 const app = (module.exports = express());
 
-const users = require('./controllers/users')();
+ 
 const hash = require('./models/users')();
 const projects = require('./controllers/projects')();
 const issues = require('./controllers/issues')();
 const comments = require('./controllers/comments')(); 
+const users = require('./controllers/users')();
 
 app.use(async (req, res, next) => {
   const FailedAuthMessage = {

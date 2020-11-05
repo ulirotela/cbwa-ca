@@ -7,15 +7,15 @@ module.exports = () => {
   
   const get = async (email = null) => {
     if (!email) {
-      const allUsers = await db.get(COLLECTION);
-      return allUsers;
+      const  user = await db.get(COLLECTION);
+      return  user;
     }
 
-    const singlUser = await db.get(COLLECTION, {
+    const user  = await db.get(COLLECTION, {
       email: email,
     });
 
-    return singlUser;
+    return user;
   };
 
   const add = async (name, email, usertype, userKey) => {
@@ -32,7 +32,7 @@ module.exports = () => {
   const getByKey = async (email, supliedKey) => {
     if (!supliedKey || !email) {
       return {
-        error: 'No key or email address',
+        error: 'wrong email or password',
       };
     }
 
@@ -43,7 +43,7 @@ module.exports = () => {
       const verify = bcrypt.compareSync(supliedKey, user[0].key);
       if (!verify) {
         return {
-          error: 'Password not correct',
+          error: 'wrong password',
         };
       }
       return user[0];
