@@ -39,7 +39,6 @@ app.use(async (req, res, next) => {
   next();
 });
 
-
 app.use(bodyParser.json());
 
 //users routes
@@ -66,7 +65,7 @@ app.post('/projects', projects.postController);
 
 
 app.get('/', (req, res) => {
-  res.send('  asdfjk ');
+  res.send('my  bugtracker ');
 });
 
 app.listen(port, hostname, () => {

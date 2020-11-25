@@ -10,7 +10,7 @@ module.exports = () => {
       const  user = await db.get(COLLECTION);
       return  user;
     }
-
+    
     const user  = await db.get(COLLECTION, {
       email: email,
     });
@@ -34,10 +34,17 @@ module.exports = () => {
       return null
     }
 
+    let user
+    try{
+
     try {
-      const user = await db.get(COLLECTION, {
+      user = await db.get(COLLECTION, {
         email: email,
       });
+    } catch (ex) {
+      console.log(" ====Exception ::getByKey")
+      return null;
+    }
       if(user.length == 0){
         return null
       }
